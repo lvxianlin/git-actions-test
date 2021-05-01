@@ -5,11 +5,16 @@ const fs = require('fs');
 const {request} = require('./request');
 
 // 解析配置文件
-let config = JSON.parse(fs.readFileSync('config.json'));
+let config = JSON.parse(fs.readFileSync('./config.json'));
+
+// 添加环境测试
+// process.env.COOKIE = 
 
 // 读取cookie
-request.defaults.headers.common.cookie = config.COOKIE;
+request.defaults.headers.common.cookie = eval(config.COOKIE);
+
 request.defaults.headers.common["user-agent"] = config["User-Agent"];
+
 // 签到请求
 const checkIn = () =>{
   return request({
